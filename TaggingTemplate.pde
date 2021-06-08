@@ -9,13 +9,13 @@ ArrayList<Area> areas = new ArrayList();
 Area area;
 
 void setup() {
-  img = loadImage("NL-UtHUA_650_101_000182.jpg");
+  img = loadImage("data/NL-UtHUA_650_101_000185 copy.jpg");
   size(1400, 700, P3D);
   view = new Viewport(this);
   view.setBounds(0, 0, width, height);
   view.setContentSize(img.width, img.height);
 
-  Table table = loadTable("settings.csv", "header");
+  Table table = loadTable("data/settings.csv", "header");
   for (TableRow row : table.rows()) {
     int x = row.getInt("x");
     int y = row.getInt("y");
@@ -32,7 +32,7 @@ void draw() {
   image(img, 0, 0);
 
   fill(0, 255, 255, 50);
-  stroke(0, 255, 255);
+  stroke(0); //, 255, 255);
   for (Area r : areas) {
     rect(r.x, r.y, r.width, r.height);
   }
@@ -104,5 +104,5 @@ void saveSettings() {
     row.setInt("height", a.height);
     row.setString("label", a.label);
   }
-  saveTable(table, "settings.csv");
+  saveTable(table, "data/settings.csv");
 }
