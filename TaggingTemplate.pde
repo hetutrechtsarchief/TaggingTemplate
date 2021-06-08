@@ -95,6 +95,7 @@ void saveSettings() {
   table.addColumn("width");
   table.addColumn("height");
   table.addColumn("label");
+  table.addColumn("remove"); //regex code to strip text from string
 
   for (Area a : areas) {
     TableRow row = table.addRow();
@@ -102,7 +103,6 @@ void saveSettings() {
     row.setInt("y", a.y);
     row.setInt("width", a.width);
     row.setInt("height", a.height);
-    row.setString("label", a.label);
   }
   saveTable(table, "data/settings.csv");
 }
