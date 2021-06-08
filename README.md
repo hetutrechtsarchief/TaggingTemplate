@@ -7,6 +7,7 @@ After marking the areas edit data/settings.csv to enter the names/labels/tags. O
 
 <img src="data/screenshot.jpg" width="500">
 
+## data/settings.csv
 ```csv
 x,y,width,height,label,remove
 2274,166,1526,106,,
