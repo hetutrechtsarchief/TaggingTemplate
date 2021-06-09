@@ -15,14 +15,17 @@ void setup() {
   view.setBounds(0, 0, width, height);
   view.setContentSize(img.width, img.height);
 
-  Table table = loadTable("data/settings.csv", "header");
+  Table table = loadTable("data/tags.csv", "header");
   for (TableRow row : table.rows()) {
-    int x = row.getInt("x");
-    int y = row.getInt("y");
-    int w = row.getInt("width");
-    int h = row.getInt("height");
-    String label = row.getString("label");
-    areas.add(new Area(x, y, w, h, label));
+    Area a = new Area();
+    a.x = row.getInt("x");
+    a.y = row.getInt("y");
+    a.width = row.getInt("width");
+    a.height = row.getInt("height");
+    a.label = row.getString("label");
+    a.remove = row.getString("remove");
+    a.recordOffset = row.getInt("recordOffset");
+    areas.add(a);
   }
 }
 
@@ -46,7 +49,9 @@ void mousePressed() {
   if (shiftDown) {
     selecting = true;
     view.mouseEnabled = false;
-    area = new Area(int(p.x), int(p.y), 0, 0, "");
+    area = new Area();
+    area.x = (int)p.x;
+    area.y = (int)p.y;
     areas.add(area);
     println(p);
   }
@@ -96,6 +101,7 @@ void saveSettings() {
   table.addColumn("height");
   table.addColumn("label");
   table.addColumn("remove"); //regex code to strip text from string
+  table.addColumn("recordOffset"); //regex code to strip text from string
 
   for (Area a : areas) {
     TableRow row = table.addRow();
@@ -103,6 +109,9 @@ void saveSettings() {
     row.setInt("y", a.y);
     row.setInt("width", a.width);
     row.setInt("height", a.height);
+    row.setString("label", a.label);
+    row.setString("remove", a.remove);
+    row.setInt("recordOffset", a.recordOffset);
   }
-  saveTable(table, "data/settings.csv");
+  saveTable(table, "data/tags.csv");
 }
